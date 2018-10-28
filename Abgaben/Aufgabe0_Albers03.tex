@@ -1,0 +1,21 @@
+\documentclass[12pt,final]{article}
+% \usepackage{pdflscape}
+\usepackage{pdfpages}
+
+\usepackage{epstopdf}
+\epstopdfDeclareGraphicsRule{.tiff}{png}{.png}{convert -density 150 #1 \OutputFile}
+\AppendGraphicsExtensions{.tiff}
+
+
+\author{Nico Albers}
+\title{Abgabe 0 Autonomes Fahren}
+\begin{document}
+\maketitle
+
+\section{Aufgabe 0}
+
+
+\includepdf[noautoscale=false,fitpaper=true,landscape]{ex01_measured_track.pdf}
+\includepdf[noautoscale=false,fitpaper=true,landscape]{ex01_screenshot.tiff}
+
+\end{document}
