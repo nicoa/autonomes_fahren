@@ -14,3 +14,6 @@
 * [Abgaben](./Abgaben)
 * [Script for allocating the licenses](./use_all_licenses.m)
 
+If you only want to run one script:
+
+     /Applications/MATLAB_R2018a.app/bin/matlab -nodisplay -nodesktop -r "run plot_measured_data.m; exit"
