@@ -13,6 +13,7 @@
 ## Useful
 * [Abgaben](./Abgaben)
 * [Script for allocating the licenses](./use_all_licenses.m)
+* clear latex not-necessary files `latexmk -c`
 
 If you only want to run one script:
 
