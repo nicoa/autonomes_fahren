@@ -1,0 +1,112 @@
+\documentclass[12pt,final]{article}
+% \usepackage{pdflscape}
+% \usepackage{pdfpages}
+
+% \usepackage{epstopdf}
+% \epstopdfDeclareGraphicsRule{.tiff}{png}{.png}{convert -density 180 #1 \OutputFile}
+% \AppendGraphicsExtensions{.tiff}
+
+
+\author{Team 03}
+\title{Abgabe 1 Autonomes Fahren}
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\section{Masse}
+    \subsection{gesamtes Auto}
+    Waage kann nur bis 2kg, deshalb gesplittet:
+    \begin{itemize}
+        \item Akku: 404,32g
+        \item Fahrzeug: 1841,36g
+        \item Akkuhalterung: 15,45g
+        \item SUmme: 2261,13
+    \end{itemize}
+
+    \subsection{Einzelmessungen (oben drin)}
+    \begin{itemize}
+        \item Einzelnes Rad: 37,35g
+        \item 4 Räder: 149,74g
+        \item Motor: 181,87g
+        \item Raspberry Pi: 50,18g
+        \item IBT\_2 (blau): 65,99g
+        \item Verschaltung: 48,13g
+        \item Chassis: 762,99g
+        \item Kameraaufhängung: 147,05g
+        \item Grundplatte für Technik: 227,32g
+        \item Servomotor: 63,81g
+        \item Kamera: 3,38g
+        \item Schalter:
+        \item div Schrauben: 3,73g
+        \item div Schrauben: 4,14g
+        \item div Schrauben (Verbindung chassis technik): 38,11g
+        \item IMU (beschleunigungssensor):
+        \item Kabel blaue Platine <-> Steuerungseinheit: 7,12g
+        \item Sicherung: 34,47g
+    \end{itemize}
+
+\section{Schwerpunkt}
+Gemessen mit Federwagen in X Richtung.
+\begin{itemize}
+\item vorne: $7,1N$
+\item hinten: $14,5N$
+\item Abstand: $31,5cm$
+\item $7,1/(7,1+14,5)*31,5 = 10,354166667$
+\item $14,5/(7,1+14,5)*31,5 = 21,145833333$
+\end{itemize}
+
+Waage:
+
+\begin{itemize}
+\item vorne: 907,4g
+\item rechts: 1305,3g
+\item 907,4/(907,4+1305,3)*30=12,302616713
+\item 1305,3/(907,4+1305,3)*30=17,697383287
+\end{itemize}
+
+Korrektur: 28,5 (TODO)
+
+Links/Rechts:
+links 11,1N rechts 9N
+links 10N rechts 10,5
+
+[0] Den wahren Schwerpunkt - irgendwo im Inneren der Karosserie (Fahrgastzelle) zu ermitteln, dürfte schwierig werden.
+Soweit ich das richtig verstehe, wäre Dir aber vermutlich schon ausreichend damit geholfen, die Schwerpunktlage bezogen auf die Grundfläche zu ermitteln.
+
+[0]: http://www.uni-protokolle.de/foren/viewt/262158,0.html
+*
+
+
+\section{Trägheit}
+[1]: file:///Users/nico.albers/Downloads/MDO3000-Oscilloscope-User-Manual.pdf
+
+
+$T=\frac{2\pi}{\omega} = 2\pi\sqrt{\frac{I}{mgl}}$
+* T Periodendauer
+* I Trägheitsmoment
+* $\omega$: Kreisfrequenz
+* m Masse
+* g Erdbeschleunigung
+* l Länge des Pendels
+
+
+
+\section{Radius}
+maximaler Einschlagwinkel (300), 133,7m
+
+
+\section{dynamischer radius}
+1. run 500
+2. run 1000
+3. run 2000
+
+
+
+
+
+
+
+
+
+\end{document}
