@@ -7,7 +7,7 @@
 
 \usepackage[margin=2cm]{geometry}
 \usepackage{multicol}
-
+\usepackage{nicefrac}
 
 % \usepackage{pdflscape}
 % \usepackage{pdfpages}
@@ -64,27 +64,28 @@
     \begin{itemize}
     \item vorne: $\SI{7,1}{\newton}$
     \item hinten: $\SI{14,5}{\newton}$
-    \item Abstand zwischen : $\SI{31,5}{\cm}$
+    \item Abstand zwischen den Messpunkten: $\SI{31,5}{\cm}$
     \end{itemize}
-    \item $\frac{7,1}{7,1+14,5}\cdot 31,5 = 10,354166667$
-    \item $\frac{14,5}{7,1+14,5}\cdot 31,5 = 21,145833333$
+    Dies führt zu einer Schwerpunktslage von $31,5\cdot\nicefrac{7,1}{7,1+14,5} \approx 10,354$ gegenüber dem hinteren Messpunkt beziehungsweise einer Schwerpunktslage von $31,5\cdot\nicefrac{14,5}{7,1+14,5} \approx 21,146$ gegenüber dem vorderen Messpunkt.
 
-    Weiter haben wir eine Waage:
-
+    Weiter haben wir eine Messung mit Waage durchgeführt.
+    Hierbei wurde eine Achse aufgelegt und gemessen, während die andere in Gleichgewichtslage fix gehalten wurde. Gemessen wurden folgende Werte:
     \begin{itemize}
     \item vorne: $\SI{907,4}{\gram}$
-    \item rechts: $\SI{1305,3}{\gram}$
-    \item $\frac{907,4}{907,4+1305,3}\cdot 28,5=11,687485877$
-    \item $\frac{1305,3}{907,4+1305,3}\cdot 28,5=17,608297439$
+    \item hinten: $\SI{1305,3}{\gram}$
+    \item Abstand zwischen den Achsen (Messpunkten): \SI{28,5}{\cm}
     \end{itemize}
+    Dies führt zu einer Schwerpunktslage von $28,5\cdot\nicefrac{907,4}{907,4+1305,3} \approx 11,687$ gegenüber dem hinteren Messpunkt beziehungsweise einer Schwerpunktslage von $28,5\cdot\nicefrac{1305,3}{907,4+1305,3} \approx 17,608$ gegenüber dem vorderen Messpunkt.
 
 
-    Hierbei sind wir davon ausgegangen, dass der Schwerpunkt in $Y$-Richtung (seitlich) zu vernachlässigen sei. Eine Messung mit Federwagen hat folgende Ergebnisse geliefert:
+    Hierbei sind wir davon ausgegangen, dass der Schwerpunkt in $Y$-Richtung (seitlich) zu vernachlässigen sei. Zwei Messungen mit Federwagen haben folgende Ergebnisse geliefert:
     \begin{itemize}
-        \item links 11,1N rechts 9N
-        \item links 10N rechts 10,5
+        \item links \SI{11,1}{\newton} sowie rechts \SI{9}{\newton}
+        \item links \SI{10}{\newton} sowie rechts \SI{10,5}{\newton}
     \end{itemize}
 
+    Die Unterschiede sind hier auf Messfehler zurückzuführen, im Mittel ist die Schwerpunktslage in diese Richtung zu vernachlässigen und nur wie oben beschrieben in $X$-Richtung zu betrachten.
+    Auch in $X$-Richtung traten verschiedene Unterschiede auf, im Mittel lässt sich aber (wie erwartet) sagen dass sich der Schwerpunkt etwa im hinteren Drittel auf Höhe des Motors befindet.
 
 \section{Trägheit}
 [1]: file:///Users/nico.albers/Downloads/MDO3000-Oscilloscope-User-Manual.pdf
@@ -105,10 +106,11 @@ maximaler Einschlagwinkel (300), 133,7m
 
 
 \section{dynamischer radius}
-1. run 500
-2. run 1000
-3. run 2000
-
+\begin{itemize}
+    \item 1. run 500
+    \item 2. run 1000
+    \item 3. run 2000
+\end{itemize}
 
 
 
