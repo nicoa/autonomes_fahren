@@ -18,11 +18,14 @@ xx = -y_pos_car.Data;
 yy = x_pos_car.Data;
 %xx = -location_data.Data(:, 2);
 %yy = location_data.Data(:, 1);
-x_interp = interp1(linspace(1,length(xx),length(x)),x, 1:length(xx)+1, 'spline');
-y_interp = interp1(linspace(1,length(yy),length(y)),y, 1:length(yy)+1, 'spline');
+x_interp = interp1(linspace(1,length(xx)*50,length(x)), x, 1:length(xx)*50+1, 'spline');
+y_interp = interp1(linspace(1,length(yy)*50,length(y)), y, 1:length(yy)*50+1, 'spline');
 time = y_pos_car.Time;
 %time = location_data.Time;
 errors = calculate_dists(xx, x_interp, yy, y_interp);
+
+
+
 figure('Position', [5 5 1100 600])
 subplot(2, 7,[1 2 8 9])
 whitebg([0, 0, 0] + 0.85)
@@ -72,7 +75,7 @@ fig_pos = fig.PaperPosition;
 fig.PaperSize = [fig_pos(3) fig_pos(4)];
 
 print(fig,'ex01_measured_track.pdf','-dpdf')
-%close(fig)
+close(fig)
 
 
 function adjust_axis(ax)
