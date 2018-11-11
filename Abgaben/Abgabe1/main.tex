@@ -1,7 +1,16 @@
-\documentclass[12pt,final]{article}
+\documentclass[11pt]{article}
+\usepackage{siunitx}
+\sisetup{
+  locale = DE ,
+  per-mode = symbol  % whether it should print "/" or "^-1"
+}
+
+\usepackage[margin=2cm]{geometry}
+\usepackage{multicol}
+
+
 % \usepackage{pdflscape}
 % \usepackage{pdfpages}
-
 % \usepackage{epstopdf}
 % \epstopdfDeclareGraphicsRule{.tiff}{png}{.png}{convert -density 180 #1 \OutputFile}
 % \AppendGraphicsExtensions{.tiff}
@@ -11,71 +20,70 @@
 \title{Abgabe 1 Autonomes Fahren}
 \begin{document}
 \maketitle
-
 \tableofcontents
 
 \section{Masse}
+
     \subsection{gesamtes Auto}
-    Waage kann nur bis 2kg, deshalb gesplittet:
+    Die Waage kann nur eine Masse bis \SI{2}{\kilogram} messen, deshalb wurde wie folgt ein Gesamtgewicht von \SI{2261,13}{\gram} errechnet:
     \begin{itemize}
-        \item Akku: 404,32g
-        \item Fahrzeug: 1841,36g
-        \item Akkuhalterung: 15,45g
-        \item SUmme: 2261,13
+        \item Akku: $\SI{404,32}{\gram}$
+        \item Fahrzeug: $\SI{1841,36}{\gram}$
+        \item Akkuhalterung: $\SI{15,45}{\gram}$
     \end{itemize}
 
-    \subsection{Einzelmessungen (oben drin)}
+    \subsection{Einzelmessungen}
+    Für spätere Berechnungen und zur Sicherheit wurde eine Messung der enthaltenen Einzelteile (soweit möglich) durchgeführt. Dies hat folgende Massen ergeben:
+    \begin{multicols}{2}
     \begin{itemize}
-        \item Einzelnes Rad: 37,35g
-        \item 4 Räder: 149,74g
-        \item Motor: 181,87g
-        \item Raspberry Pi: 50,18g
-        \item IBT\_2 (blau): 65,99g
-        \item Verschaltung: 48,13g
-        \item Chassis: 762,99g
-        \item Kameraaufhängung: 147,05g
-        \item Grundplatte für Technik: 227,32g
-        \item Servomotor: 63,81g
-        \item Kamera: 3,38g
-        \item Schalter:
-        \item div Schrauben: 3,73g
-        \item div Schrauben: 4,14g
-        \item div Schrauben (Verbindung chassis technik): 38,11g
-        \item IMU (beschleunigungssensor):
-        \item Kabel blaue Platine <-> Steuerungseinheit: 7,12g
-        \item Sicherung: 34,47g
+        \item Einzelnes Rad: $\SI{37,35}{\gram}$
+        \item 4 Räder: $\SI{149,74}{\gram}$
+        \item Motor: $\SI{181,87}{\gram}$
+        \item Raspberry Pi: $\SI{50,18}{\gram}$
+        \item IBT\_2 (blau): $\SI{65,99}{\gram}$
+        \item Verschaltung: $\SI{48,13}{\gram}$
+        \item Chassis: $\SI{762,99}{\gram}$
+        \item Kameraaufhängung: $\SI{147,05}{\gram}$
+        \item Grundplatte für Technik: $\SI{227,32}{\gram}$
+        \item Servomotor: $\SI{63,81}{\gram}$
+        \item Kamera: $\SI{3,38}{\gram}$
+        \item Schalter: NaN
+        \item div Schrauben: $\SI{3,73}{\gram}$
+        \item div Schrauben: $\SI{4,14}{\gram}$
+        \item div Schrauben (Verbindung vom Chassis zur Technik): $\SI{38,11}{\gram}$
+        \item IMU (beschleunigungssensor): NaN
+        \item Kabel zwischen blauer Platine und Steuerungseinheit: $\SI{7,12}{\gram}$
+        \item Sicherung: $\SI{34,47}{\gram}$
     \end{itemize}
+    \end{multicols}
 
 \section{Schwerpunkt}
-Gemessen mit Federwagen in X Richtung.
-\begin{itemize}
-\item vorne: $7,1N$
-\item hinten: $14,5N$
-\item Abstand: $31,5cm$
-\item $7,1/(7,1+14,5)*31,5 = 10,354166667$
-\item $14,5/(7,1+14,5)*31,5 = 21,145833333$
-\end{itemize}
+    Der wahre Schwerpunkt war nicht zu ermitteln, dieser liegt im Inneren der Karosserie.
+    Wir haben die Schwerpunktslage bezogen auf die Grundfläche auf zwei verschieden Arten ermittelt.
+    Zum einen wurde das Gewicht mit Federwagen in $X$-Richtung gemessen, hierbei traten folgende Kräfte auf:
+    \begin{itemize}
+    \item vorne: $\SI{7,1}{\newton}$
+    \item hinten: $\SI{14,5}{\newton}$
+    \item Abstand zwischen : $\SI{31,5}{\cm}$
+    \end{itemize}
+    \item $\frac{7,1}{7,1+14,5}\cdot 31,5 = 10,354166667$
+    \item $\frac{14,5}{7,1+14,5}\cdot 31,5 = 21,145833333$
 
-Waage:
+    Weiter haben wir eine Waage:
 
-\begin{itemize}
-\item vorne: 907,4g
-\item rechts: 1305,3g
-\item 907,4/(907,4+1305,3)*30=12,302616713
-\item 1305,3/(907,4+1305,3)*30=17,697383287
-\end{itemize}
+    \begin{itemize}
+    \item vorne: $\SI{907,4}{\gram}$
+    \item rechts: $\SI{1305,3}{\gram}$
+    \item $\frac{907,4}{907,4+1305,3}\cdot 28,5=11,687485877$
+    \item $\frac{1305,3}{907,4+1305,3}\cdot 28,5=17,608297439$
+    \end{itemize}
 
-Korrektur: 28,5 (TODO)
 
-Links/Rechts:
-links 11,1N rechts 9N
-links 10N rechts 10,5
-
-[0] Den wahren Schwerpunkt - irgendwo im Inneren der Karosserie (Fahrgastzelle) zu ermitteln, dürfte schwierig werden.
-Soweit ich das richtig verstehe, wäre Dir aber vermutlich schon ausreichend damit geholfen, die Schwerpunktlage bezogen auf die Grundfläche zu ermitteln.
-
-[0]: http://www.uni-protokolle.de/foren/viewt/262158,0.html
-*
+    Hierbei sind wir davon ausgegangen, dass der Schwerpunkt in $Y$-Richtung (seitlich) zu vernachlässigen sei. Eine Messung mit Federwagen hat folgende Ergebnisse geliefert:
+    \begin{itemize}
+        \item links 11,1N rechts 9N
+        \item links 10N rechts 10,5
+    \end{itemize}
 
 
 \section{Trägheit}
