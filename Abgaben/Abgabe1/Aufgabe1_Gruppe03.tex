@@ -69,7 +69,7 @@
     Wir haben die Schwerpunktslage bezogen auf die Grundfläche auf zwei verschieden Arten ermittelt:
     \begin{itemize}
     \item Zum einen wurde das Gewicht mit Federwagen in $X$-Richtung gemessen, Werte waren vorne $\SI{7,1}{\newton}$ und hinten $\SI{14,5}{\newton}$ bei einem Abstand zwischen den Messpunkten von $\SI{31,5}{\cm}$. Dies führt zu einer Schwerpunktslage von $31,5 \cdot \nicefrac{7,1}{7,1+14,5} \approx 10,354$ gegenüber dem hinteren Messpunkt und einer Schwerpunktslage von $31,5 \cdot \nicefrac{14,5}{7,1+14,5} \approx 21,146$ gegenüber dem vorderen Messpunkt.
-    \item Weiter haben wir eine Messung mit Waage durchgeführt. Hierbei wurde eine Achse aufgelegt und gemessen, während die andere in Gleichgewichtslage fix gehalten wurde. Gemessen wurden vorne $\SI{907,4}{\gram}$ und hinten $\SI{1305,3}{\gram}$ bei einem Abstand zwischen den Achsen (Messpunkten) von \SI{28,5}{\cm}. Dies führt zu einer Schwerpunktslage von $28,5\cdot\nicefrac{907,4}{907,4+1305,3} \approx 11,687$ gegenüber dem hinteren Messpunkt beziehungsweise einer Schwerpunktslage von $28,5\cdot\nicefrac{1305,3}{907,4+1305,3} \approx 17,608$ gegenüber dem vorderen Messpunkt.
+    \item Weiter haben wir eine Messung mit Waage durchgeführt. Hierbei wurde eine Achse aufgelegt und gemessen, während die andere in Gleichgewichtslage fix gehalten wurde. Gemessen wurden vorne $\SI{907,4}{\gram}$ und hinten $\SI{1305,3}{\gram}$ bei einem Abstand zwischen den Achsen (Messpunkten) von \SI{28,5}{\cm}. Dies führt zu einer Schwerpunktslage von $28,5\cdot\nicefrac{907,4}{907,4+1305,3} \approx 11,687$ gegenüber dem hinteren Messpunkt beziehungsweise einer Schwerpunktslage von $28,5\cdot\nicefrac{1305,3}{907,4+1305,3} \approx 16,812$ gegenüber dem vorderen Messpunkt.
     \end{itemize}
 
     Hierbei sind wir davon ausgegangen, dass der Schwerpunkt in $Y$-Richtung (seitlich) zu vernachlässigen sei. Zwei Messungen mit Federwagen haben folgende Ergebnisse geliefert:
@@ -79,26 +79,26 @@
     \end{itemize}
 
     Die Unterschiede sind hier auf Messfehler zurückzuführen, im Mittel ist die Schwerpunktslage in diese Richtung zu vernachlässigen und nur wie oben beschrieben in $X$-Richtung zu betrachten.
-    Auch in $X$-Richtung traten verschiedene Unterschiede auf, im Mittel lässt sich aber (wie erwartet) sagen dass sich der Schwerpunkt etwa im hinteren Drittel auf Höhe des Motors befindet.
+    Auch in $X$-Richtung traten verschiedene Unterschiede auf, im Mittel lässt sich aber (wie erwartet) sagen dass sich der Schwerpunkt etwa im hinteren Drittel auf Höhe des Motors befindet, auf einer Höhe von 20cm von der vorderen Radaufhängung entfernt.
 
 \section{Trägheit}
 Um die Trägheit zu errechnen, wurde ein Versuch an einem Pendel durchgeführt.
 Das an einer Lichtschranke anliegende Signal, sobald das Pendel diese durchläuft, wurde in einem Oszilloskop\footnote{MDO3000 series, compare \url{~/Downloads/MDO3000-Oscilloscope-User-Manual.pdf}} als CSV Datei exportiert und in den Abbildungen \ref{fig:AufhaengungohneGummi}, \ref{fig:AufhaengungmitGummi} und \ref{fig:AufhaengungmitGummiundAuto} analysiert.
 Hier sieht man, dass für die Aufhängung eine mittlere Periodendauer von zwischen $\SI{1,44}{\second}$ und $\SI{1,45}{\second}$ vorliegt, während diese für das Auto $\SI{1,37}{\second}$ beträgt.
 
-Wir haben folgende Gleichungen (mit $T=\frac{2\pi}{\omega} = 2\pi\sqrt{\frac{I}{mgl}}$ Periodendauer, $I$ Trägheitsmoment, $\omega$ Kreisfrequenz, $m$ Masse, $g$ Erdbeschleunigung und $l$ Länge des Pendels) zugrunde gelegt:
+Wir haben folgende Gleichungen (mit $T$ Periodendauer, $I$ Trägheitsmoment, $\omega$ Kreisfrequenz, $m$ Masse, $g$ Erdbeschleunigung und $l$ Länge des Pendels) zugrunde gelegt:
 \begin{eqnarray}
     &\ddot{x}(t) + \omega^2x(t)& = 0 \\
     \Leftrightarrow &\ddot{\alpha}(t) + \frac{mgl}{I}\alpha(t)& = 0 \\
     \Leftrightarrow &I\ddot{\alpha} + \alpha mgl& = 0 \\
+     &T=\frac{2\pi}{\omega} = 2\pi\sqrt{\frac{I}{mgl}}\\
+    &I_{\text{Car}}=(t_{\text{auto}}^2/(2pi)^2\cdot 9,81\cdot m_{\text{gesamt}}\cdot l_{\text{ges}}-l_{car}^2\cdot m_c-l_{\text{gerüst}}^2\cdot (m_p+m_g)-I_{\text{gerüst}}
 \end{eqnarray}
 
+Mithilfe des Steiner Anteils wird das Koordinatensystem fuer das Auto verschoben. Dadurch ergibt sich Gleichung 5 fuer das Traegheitsmoment des Autos.
 
-\todo[inline]{ausformulieren}Steiner anteil:
 
-$I_{\text{Car}}=(t_{\text{auto}}^2/(2pi)^2\cdot 9,81\cdot m_{\text{gesamt}}\cdot l_{\text{ges}}-l_{car}^2\cdot m_c-l_{\text{gerüst}}^2\cdot (m_p+m_g)-I_{\text{gerüst}}$
-
-Einsetzen ergibt (wenn $I_{\text{gerüst}} = 0,0625$ und $L_{\text{car}} = 0,385$ angenommen wird) $I_{\text{Car}} = 0,0274$. Andere gruppen haben hier bis zu $0,04$ errechnet / gemessen. Dies resultiert möglicherweise aus der Annahme $L_{\text{car}}$, durch die fehlende Berücksichtigung des Schwerpunkts.
+Einsetzen ergibt (wenn $I_{\text{gerüst}} = 0,0625$ und $L_{\text{car}} = 0,385$ angenommen wird) $I_{\text{Car}} = 0,0274$. Andere Gruppen haben hier bis zu $0,04$ errechnet / gemessen. Dies resultiert möglicherweise aus der Annahme $L_{\text{car}}$, durch die fehlerhafte Berücksichtigung des Schwerpunkts (durch \SI{0,5}{\cm} Änderung kommt man schon auf $0,04$).
 
 
 \begin{figure}[htbp]
@@ -119,31 +119,68 @@ Einsetzen ergibt (wenn $I_{\text{gerüst}} = 0,0625$ und $L_{\text{car}} = 0,385
 
 
 \section{Radius}
-maximaler Einschlagwinkel (300), 133,7m
+    Zunächst haben wir die Referenz aus den Kameraaufnahmen in von bekannten 60cm zu 26mm im Bild. Über diese Referenz kann auch $l$ als Abstand ziwschen Vorder- und Hinterreifen ermittelt werden.
+    Wir haben Kreisfahrten mit 7 verschiedenen konstanten Geschwindigkeiten aufgenommen.
+    Die digitalen Werte sind: 300, 500, 1000, 1500, 2000, 2500 und 3000.
+    Diese haben wir über die ermittelten Durchmesser sowie Zeitabstände auf die gemittelten Geschwindigkeiten umgerechnet.
+    \todo[inline]{
+        (Dies sind die ergbenisse in den velocity spalten nach dem Pfeil. Der erste ist mit der ersten Runde der zweite in Klammern wurde ohne diese Berechnet (EInfluss der Beschleunigung)).
+    }
+    Die Momentaufnahmen sind alle 180 Grad und die Spalte Distance gibt die anhand der Bilder gemessenen Werte in mm an.
+    Darunter ist der gemittelte Wert, sowie die Umrechnung in cm. In der Spalte delta t sind zunächst die absoluten Zeitpunkte im video und danach die sich daraus ergebene Differenz angegeben.
+    Für die Geschwindigkeit haben wir die Strecke des halben Umfangs x=pi*distance/2 und die Geschwindigkeit aus v=x/deltat.
+
+    Im Ergebnis ist das Mapping von digitalen Werten zu tatsächlicher Geschwindigkeit nicht linear (dgeressives Verhalten).
+    Der gefahrene Radius bei verschiedenen Geschwindigkeiten bleibt näherungsweise konstant.
+
+    Ganz unten sind die Ergebnisse der dnamischen Kreisfahrt dort wurde die Geschwindigkeit stückweise erhöht und wir haben ähnlich wie bei der stationären die Durchmesser ermittelt.
+    Dabei wurden Momentaufnahmen alle 90 Grad genommen daher gibt es horizontal und vertival distance also einmal (0 zu 180 und 90 zu 270).
+    Das Ergebnis hier ist, dass der gefahrene Druchmesser (bzw. Radius) bei steigender Geschw. ansteigt.
+    Dies entspricht Untersteuern.
+    Bei der Berechnung des Eigenlenkgradienten haben wir angenommen, dass der maximale Lenkeinschlag der Reifen konstant bleibt Gemessen waren 25grad.
+    Der Egenlenkgradient wird im Matlab script berechnet zu $(deltv-ackerman)*R/v^2=EG$.
+    Hierbei kommt gemittelt ein kleiner positiver Wert raus, was das Untersteuern bestätigt. $0.0547 \left[rad*s^2/m\right]$
+    Der Ackermann winkel als $el/R$ kann als gemittelt 0.041 $\left[rad\right]$ als konstant bestätigt werden.
 
 
-\section{dynamischer radius}
-\begin{itemize}
-    \item 1. run 500
-    \item 2. run 1000
-    \item 3. run 2000
-\end{itemize}
 
+\section{Dynamischer Radius}
+    \begin{table}[tb]
+        \caption{Messergebnisse Dynamischer Radius}
+        \label{tab:dynamicradius}
+        \centering
+        \begin{tabular}{|l|l|l|}
+        % \hline
+        Geschwindigkeit & Umdrehungen & Dynamischer Radius \\ \hline
+        1000            & 4,9167      & 3,237 cm           \\
+        2000            & 5           & 3,1415 cm          \\
+        3000            & 5           & 3,1415 cm
+        \end{tabular}
+    \end{table}
+    Wir haben festgestellt, dass der Durchmesser des Reifens \SI{6,5}{\cm} entspricht.
+    Der Radius beläuft sich folglich auf \SI{3,25}{\cm}.
+    Bei der Berechnung des dynamischen Radius haben wir die Geschwindigkeiten $1000$, $2000$ und $3000$ verwendet (siehe Tabelle \ref{tab:dynamicradius}).
+    Zur Messung haben wir eine Markierung am hinteren linken Reifen angebracht, um die Anzahl der Umdrehungen in einem festen Abstand zu bestimmen (hier: \SI{1}{m}).
+    Da der Ausgangsumfang bei \SI{20,42}{\cm} liegt, konnten wir bereits zu Beginn von etwa 5 Umdrehungen ausgehen.
+    Hierbei haben wir festgestellt, dass sich der dynamische Radius nur geringfügig von den Ausgangswerten unterscheidet.
+    Aufgrund der Messmethode unterliegen diese Ergebnisse allerdings einer gewissen Schwankung.
 
-\section{Motor-Kennlinie} % (fold)
-\label{sec:motor_kennlinie}
-In der Motorkennlinie beobachteten wir lineares Verhalten, der Eingang wird also nur skaliert.
-Der Motor arbeitet mit einem Eingang zwischen $0$ und $4095$ Einheiten.
-Beim Aufnehmen der Motorkennlinie mit Python beginnt diese erst bei $1000$ Einheiten;
-erst dort beginnt das Auto, sich zu bewegen.
-Andere Gruppen beobachteten allerdings ein nicht-lineares Verhalten mit fallender Steigung und nahezu logarithmisch verlaufender Kennlinie.
-Zudem liegt die durch uns gemessene Maximalgeschwindigkeit von $4000$ Einheiten unter Vergleichswerten anderer Teams.
-Die Problematik ist uns bewusst und könnte aus unterschiedlicher Modellierung und der Steuerung der Autos resultieren.
-Vor weiterer Modellierung werden wir diesen Aspekt gemeinsam mit anderen Teams weiter untersuchen.
+\section{Motor-Kennlinie}
+    In der Motorkennlinie beobachteten wir lineares Verhalten (vgl. Figur \ref{fig:m_p_s_zu_motorinput}), ausser am Ende der Kennlinie.
+    Der Motor arbeitet mit einem Eingang zwischen $0$ und $4095$ Einheiten.
+    Beim Aufnehmen der Motorkennlinie mit Python beginnt diese erst bei $1000$ Einheiten;
+    erst dort beginnt das Auto, sich zu bewegen.
+    Andere Gruppen beobachteten allerdings ein nicht-lineares Verhalten mit fallender Steigung und nahezu logarithmisch verlaufender Kennlinie.
+    Zudem liegt die durch uns gemessene Maximalgeschwindigkeit von $4000$ Einheiten unter Vergleichswerten anderer Teams.
+    Die Problematik ist uns bewusst und könnte aus unterschiedlicher Modellierung und der Steuerung der Autos resultieren.
+    Vor weiterer Modellierung werden wir diesen Aspekt gemeinsam mit anderen Teams weiter untersuchen.
 
-% section motor_kennlinie (end)
-
-
+    \begin{figure}[tb]
+        \centering
+        \includegraphics[width=0.4\textwidth]{bild_tim}
+        \caption{\SI{1}{\meter\per\second} zu Motorinput}
+        \label{fig:m_p_s_zu_motorinput}
+    \end{figure}
 
 
 
