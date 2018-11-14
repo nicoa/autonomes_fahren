@@ -15,6 +15,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 
+\usepackage{wrapfig}
 % \usepackage{pdflscape}
 % \usepackage{pdfpages}
 % \usepackage{epstopdf}
@@ -26,7 +27,7 @@
 \title{Abgabe 1 Autonomes Fahren}
 \begin{document}
 \maketitle
-\tableofcontents
+% \tableofcontents
 
 \section{Masse}
     \subsection{gesamtes Auto}
@@ -95,10 +96,10 @@ Wir haben folgende Gleichungen (mit $T$ Periodendauer, $I$ Trägheitsmoment, $\o
     &I_{\text{Car}}=(t_{\text{auto}}^2/(2pi)^2\cdot 9,81\cdot m_{\text{gesamt}}\cdot l_{\text{ges}}-l_{car}^2\cdot m_c-l_{\text{gerüst}}^2\cdot (m_p+m_g)-I_{\text{gerüst}}
 \end{eqnarray}
 
-Mithilfe des Steiner Anteils wird das Koordinatensystem fuer das Auto verschoben. Dadurch ergibt sich Gleichung 5 fuer das Traegheitsmoment des Autos.
+Mithilfe des Steiner Anteils wird das Koordinatensystem in das Auto verschoben. Dadurch ergibt sich Gleichung 5 für das Trägheitsmoment des Autos.
 
 
-Einsetzen ergibt (wenn $I_{\text{gerüst}} = 0,0625$ und $L_{\text{car}} = 0,385$ angenommen wird) $I_{\text{Car}} = 0,0274$. Andere Gruppen haben hier bis zu $0,04$ errechnet / gemessen. Dies resultiert möglicherweise aus der Annahme $L_{\text{car}}$, durch die fehlerhafte Berücksichtigung des Schwerpunkts (durch \SI{0,5}{\cm} Änderung kommt man schon auf $0,04$).
+Einsetzen ergibt (wenn $I_{\text{gerüst}} = \SI{0,0625}{\kilogram\times\m^2}$ und $l_{\text{car}} = \SI{0,385}{\m}$ angenommen wird) $I_{\text{Car}} = \SI{0,0274}{\kilogram\times\m^2}$. Andere Gruppen haben hier bis zu $0,04$ errechnet / gemessen. Dies resultiert möglicherweise aus der Annahme $l_{\text{car}}$, durch die fehlerhafte Berücksichtigung des Schwerpunkts (durch \SI{0,5}{\cm} Änderung kommt man schon auf $0,04$).
 
 
 \begin{figure}[htbp]
@@ -119,33 +120,73 @@ Einsetzen ergibt (wenn $I_{\text{gerüst}} = 0,0625$ und $L_{\text{car}} = 0,385
 
 
 \section{Radius}
-    Zunächst haben wir die Referenz aus den Kameraaufnahmen in von bekannten 60cm zu 26mm im Bild. Über diese Referenz kann auch $l$ als Abstand ziwschen Vorder- und Hinterreifen ermittelt werden.
-    Wir haben Kreisfahrten mit 7 verschiedenen konstanten Geschwindigkeiten aufgenommen.
-    Die digitalen Werte sind: 300, 500, 1000, 1500, 2000, 2500 und 3000.
-    Diese haben wir über die ermittelten Durchmesser sowie Zeitabstände auf die gemittelten Geschwindigkeiten umgerechnet.
-    \todo[inline]{
-        (Dies sind die ergbenisse in den velocity spalten nach dem Pfeil. Der erste ist mit der ersten Runde der zweite in Klammern wurde ohne diese Berechnet (EInfluss der Beschleunigung)).
-    }
-    Die Momentaufnahmen sind alle 180 Grad und die Spalte Distance gibt die anhand der Bilder gemessenen Werte in mm an.
-    Darunter ist der gemittelte Wert, sowie die Umrechnung in cm. In der Spalte delta t sind zunächst die absoluten Zeitpunkte im video und danach die sich daraus ergebene Differenz angegeben.
-    Für die Geschwindigkeit haben wir die Strecke des halben Umfangs x=pi*distance/2 und die Geschwindigkeit aus v=x/deltat.
+    \begin{table}[tb]
+        \caption{caption here}
+        \label{tab:radius_table1}
+        \centering
+        \begin{tabular}{|l|l|l|}
+        Motorinput & gemittelter Kreisdurchmesser & gemittelte Geschwindigkeit \\ \hline
+        300        & 1.2923                       & 0.304                      \\
+        500        & 1.2822                       & 0.494                      \\
+        1000       & 1.2625                       & 1.181                      \\
+        1500       & 1.2755                       & 1.181                      \\
+        2000       & 1.2793                       & 1.345                      \\
+        2500       & 1.2837                       & 1.498                      \\
+        3000       & 1.2941                       & 1.518
+        \end{tabular}
+    \end{table}
+\begin{wraptable}{r}{0.3\textwidth}
+    % \begin{table}[tb]
+        \caption{Beschleunigende Kreisfahrt (Motorinput 500 - 2600)}
+        \label{tab:beschleunigende_kreisfahrt}
+        \centering
+        \begin{tabular}{|l}
+        Durchmesser in $m$ \\\hline
+        1.2856                 \\
+        1.2711                 \\
+        1.2632                 \\
+        1.2492                 \\
+        1.2572                 \\
+        1.2672                 \\
+        1.2691                 \\
+        1.2750                 \\
+        1.2741                 \\
+        1.2720                 \\
+        1.2789                 \\
+        1.2828                 \\
+        1.2817                 \\
+        1.2858                 \\
+        1.2974                 \\
+        1.2965
+        \end{tabular}
+    \end{wraptable}
+    Bei der konstanten Kreisfahrt haben wir sieben Versuchsreihen mit sieben verschiedenen Geschwindigkeiten mittels einer Kamera aufgenommen.
+    Die digitalen Werte zur Motoransteuerung sind 300, 500, 1000, 1500, 2000, 2500 und 3000.
+    Für jede Geschwindigkeit haben wir mehrer Runden mit konstantem Lenkeinschlag von 25 Grad aufgenommen, um anhand der Aufnahmen die Durchmesser der gefahrenen Kreise zu messen.
+    Zu diesem Zweck haben wir eine Referenzstrecke von 60cm in jeder Aufnahme, mit der die gemessenen Längen in den Momentaufnahmen zu den
+    realen Längen umgerechnet werden können. Nach Aufnahme der Videos haben wir Momentaufnahmen von Autopositionen alle 180 grad zusammen geschnitten,
+    anhand dessen wir die Durchmesser der einzelnen Versuchsreihen messen konnten. Durch dieses Vorgehen konnten wir die gefahrenen Durchmesser und Geschwindigkeiten (Tabelle \ref{tab:radius_table1}) ermitteln können, mit $\text{Umfang} = \pi*\text{Durchmesser}/2$ und $\text{Geschwindigkeit} = \frac{x}{\delta_t}$. $\delta_t$ wurde ebenfalls den Videoaufnahmen entnommen.
+    Es ist zu bemerken, dass die Streckenmessung über Momentaufnahmen keine grosse Genauigkeit aufweist und somit ein systematischer Fehler gemacht wird.
+    Somit konnten wir auch einen Zusammenhang von Motorinput zu Geschwindigkeit aufstellen (vergleiche Figur \ref{fig:reifenradius}). Hierbei ist ein degressives Verhalten bei höheren Geschw zu erkennen.
+    Unter der Annahme eines konstanten Lenkwinkels kann der Eigenlenkgradient $EG$ berechnet werden:
+    $EG=(\text{Lenkwinkel}-\text{ackermanwinkel})*R/(v^2)=0.0547\quad (rad*s^2)/m$
+    Dabei kann der ackermanwinkel  $l/R = 0.041$ berechnet werden. $l$ ist dabei der Abstand zwischen Vorder- und Hinterreifen.
+    (Der Ackermanwinkel wurde für die verschiedenen Radien berechnet und anschliessend gemittelt, da die Abweichungen sehr gering sind.)
+    Der positive Eigenlenkgradient deutet auf untersteuerndes Verhalten des Fahrzeugs hin. Dies kann weiter bestätigt werden durch Tabelle \ref{tab:beschleunigende_kreisfahrt}.
+    Hier sind die gemessenen Durchmesser bei einer beschleunigenden Kreisfahrt aufgetragen. Da diese bei zunehmender Geschwindigkeit ebenfalls grösser werden, kann auch hier untersteuerndes Verhalten beobachtet werden.
 
-    Im Ergebnis ist das Mapping von digitalen Werten zu tatsächlicher Geschwindigkeit nicht linear (dgeressives Verhalten).
-    Der gefahrene Radius bei verschiedenen Geschwindigkeiten bleibt näherungsweise konstant.
 
-    Ganz unten sind die Ergebnisse der dnamischen Kreisfahrt dort wurde die Geschwindigkeit stückweise erhöht und wir haben ähnlich wie bei der stationären die Durchmesser ermittelt.
-    Dabei wurden Momentaufnahmen alle 90 Grad genommen daher gibt es horizontal und vertival distance also einmal (0 zu 180 und 90 zu 270).
-    Das Ergebnis hier ist, dass der gefahrene Druchmesser (bzw. Radius) bei steigender Geschw. ansteigt.
-    Dies entspricht Untersteuern.
-    Bei der Berechnung des Eigenlenkgradienten haben wir angenommen, dass der maximale Lenkeinschlag der Reifen konstant bleibt Gemessen waren 25grad.
-    Der Egenlenkgradient wird im Matlab script berechnet zu $(deltv-ackerman)*R/v^2=EG$.
-    Hierbei kommt gemittelt ein kleiner positiver Wert raus, was das Untersteuern bestätigt. $0.0547 \left[rad*s^2/m\right]$
-    Der Ackermann winkel als $el/R$ kann als gemittelt 0.041 $\left[rad\right]$ als konstant bestätigt werden.
-
+\begin{figure}[hbtp]
+        \centering
+        \includegraphics[width=0.4\textwidth]{Dyn_Kreis_5678}
+        \caption{Reifenradius}
+          % \vspace{-20pt}
+        \label{fig:reifenradius}
+    \end{figure}
 
 
 \section{Dynamischer Radius}
-    \begin{table}[tb]
+    \begin{table}[bthp]
         \caption{Messergebnisse Dynamischer Radius}
         \label{tab:dynamicradius}
         \centering
@@ -166,6 +207,13 @@ Einsetzen ergibt (wenn $I_{\text{gerüst}} = 0,0625$ und $L_{\text{car}} = 0,385
     Aufgrund der Messmethode unterliegen diese Ergebnisse allerdings einer gewissen Schwankung.
 
 \section{Motor-Kennlinie}
+
+    \begin{wrapfigure}{r}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.4\textwidth]{bild_tim}
+        \caption{\SI{1}{\meter\per\second} zu Motorinput}
+        \label{fig:m_p_s_zu_motorinput}
+    \end{wrapfigure}
     In der Motorkennlinie beobachteten wir lineares Verhalten (vgl. Figur \ref{fig:m_p_s_zu_motorinput}), ausser am Ende der Kennlinie.
     Der Motor arbeitet mit einem Eingang zwischen $0$ und $4095$ Einheiten.
     Beim Aufnehmen der Motorkennlinie mit Python beginnt diese erst bei $1000$ Einheiten;
@@ -175,14 +223,11 @@ Einsetzen ergibt (wenn $I_{\text{gerüst}} = 0,0625$ und $L_{\text{car}} = 0,385
     Die Problematik ist uns bewusst und könnte aus unterschiedlicher Modellierung und der Steuerung der Autos resultieren.
     Vor weiterer Modellierung werden wir diesen Aspekt gemeinsam mit anderen Teams weiter untersuchen.
 
-    \begin{figure}[tb]
-        \centering
-        \includegraphics[width=0.4\textwidth]{bild_tim}
-        \caption{\SI{1}{\meter\per\second} zu Motorinput}
-        \label{fig:m_p_s_zu_motorinput}
-    \end{figure}
 
-
+\section{Teamarbeit} % (fold)
+\label{sec:teamarbeit}
+Dadurch, dass alle Aufgaben von unserem Team gemeinsam gelöst wurden, gab es keine direkte Aufteilung der einzelnen Aufgaben. Wir haben Ideen in Teamarbeit entwickelt und gemeinsam vorangetrieben.
+% section teamarbeit (end)
 
 
 \end{document}
