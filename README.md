@@ -5,6 +5,7 @@
 * [The original (lecturers) repository](https://github.com/TUHH-MUM/car-firmware)
 * [Github Help: Configuring a remote for a fork](https://help.github.com/articles/configuring-a-remote-for-a-fork/)
 * [Github Help: Syncing a Fork](https://help.github.com/articles/syncing-a-fork/)
+* [Blogpost: How to write good commit messages](https://chris.beams.io/posts/git-commit/)
 * [PR from our to tuhh repo](https://github.com/TUHH-MUM/car-firmware/compare/master...Zarbokk:master)
 * [vice versa](https://github.com/Zarbokk/Car_Pi_MUM/compare/master...TUHH-MUM:master)
 
