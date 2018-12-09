@@ -5,9 +5,7 @@
 \usepackage{hyperref}
 \usepackage[ngerman]{babel}
 \usepackage{siunitx}
-\sisetup{
-  locale = DE ,
-  per-mode = symbol  % whether it should print "/" or "^-1"
+\sisetup{locale=DE, per-mode=symbol  % whether it should print "/" or "^-1"
 }
 
 \usepackage[margin=2cm]{geometry}
@@ -16,6 +14,7 @@
 \usepackage{nicefrac}
 \usepackage{todonotes}
 \usepackage{amsmath}
+\usepackage{csquotes}
 \usepackage{amssymb}
 \DeclareMathOperator{\sign}{sign}
 \usepackage{wrapfig}
@@ -26,7 +25,7 @@
 % \AppendGraphicsExtensions{.tiff}
 
 
-\author{Felix Ganz\thanks{Projektgruppe 03 in der Lehrveranstaltung \glqq Autonomes Fahren\grqq\ an der \emph{TUHH} und der \emph{UHH}}\and Nico Albers\footnotemark[1] \and Tim Hansen\footnotemark[1]\and Timo Kias\footnotemark[1]}
+\author{Felix Ganz\thanks{Projektgruppe 03 in der Lehrveranstaltung \glqq{}Autonomes Fahren\grqq\ an der \emph{TUHH} und der \emph{UHH}}\and Nico Albers\footnotemark[1] \and Tim Hansen\footnotemark[1]\and Timo Kias\footnotemark[1]}
 \title{Abgabe 2: \emph{Abstandsregler}}
 
 %\setcounter{tocdepth}{1}
@@ -54,28 +53,22 @@
     Mit dieser klaren Abgrenzung von roten zu andersfarbigen Pixeln, haben wir eine Reihe von Regeln erstellt, mit der gefundene rote (nun weiße) Bereiche als Federn identifiziert werden konnten.
     Nachdem zwei passende rote Felder gefunden wurden, haben wir jeweils Hüllkreise mit minimalem Radius um diese gezogen, sodass alle identifizierten Punkte innerhalb dieser Hülle liegen.
     Mit der hiermit konkretisierten Geometrie der gefundenen Federn waren wir in der Lage zunächst die Mittelpunkte und daraufhin den Abstand zwischen diesen in Pixelkoordinaten zu identifizieren.
-    \todo[inline]{TODO: angaben weiterer Verfeinerungen der Grundidee Vorverarbeitung des Kamerabildes eventuell  einige der Regeln}
+    \todo[inline]{TODO:\@ angaben weiterer Verfeinerungen der Grundidee Vorverarbeitung des Kamerabildes eventuell  einige der Regeln}
 
     \begin{figure}[htbp]
         \centering
         \begin{subfigure}[b]{0.4\textwidth}
             \includegraphics[width=\textwidth]{car}
-            \caption{Bild des Autos}
-            \label{fig:car}
-        \end{subfigure}
-        ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.4\textwidth}
+            \caption{Bild des Autos}\label{fig:car}
+        \end{subfigure}~\begin{subfigure}[b]{0.4\textwidth}
             \includegraphics[width=\textwidth]{car_hsv}
-            \caption{HSV-gefiltertes Bild}
-            \label{fig:car_hcsv}
+            \caption{HSV-gefiltertes Bild}\label{fig:car_hcsv}
         \end{subfigure}
         \caption{Bild und gefiltertes Bild des Autos}\label{fig:cars}
     \end{figure}
 
 
-    \subsection{Robustheit und Performance} % (fold)
-    \label{sub:robustheit_und_performance}
+    \subsection{Robustheit und Performance}\label{sub:robustheit_und_performance}
         Für die Bilderkennung der beiden roten Punkte am Auto haben wir die Robustheit und Performance optimiert.
         Problematisch hierbei ist die geringe Größe der beiden Federn, die eine hohe Auflösung des zu analysierenden Bildes erfordern und hierdurch die Rechenzeit pro zu analysierendem Frame erhöhen.
         Als praktikable Lösung hat sich herausgestellt, das Bild in einer Größe von $748\times 572\,\text{px}$ aufzunehmen, die seitlichen Ränder und das obere Drittel zu entfernen und dann auf $60\%$ der eingelesenen Auflösung zu skalieren.
@@ -87,14 +80,13 @@
         Weiter lässt sich auch bei nur einem im Bildausschnitt erkannten Punkt die Kenntnis des zweiten Punkts sicherstellen.
 
         Diese Methode hat noch einige Problematiken.
-        So arbeitet die Erkennung bei keinem erkannten Punkt (wenn das Auto beispielsweise \glqq aus dem Bild fährt\grqq ) nicht mehr einwandfrei und fehlerhaft.
+        So arbeitet die Erkennung bei keinem erkannten Punkt (wenn das Auto beispielsweise \glqq{}aus dem Bild fährt\grqq{}) nicht mehr einwandfrei und fehlerhaft.
         Wir koennen zum aktuellen Zeitpunkt diese Punkte nicht wiedererkennen, ohne das zu verfolgende Auto wieder in die Mitte des Bildes zu stellen.
         % subsection robustheit_und_performance (end)
 
 
 
-\section{Abstandsregelung}
-\label{sec:Abstandsreglung}
+\section{Abstandsregelung}\label{sec:Abstandsreglung}
     Im Folgenden stellen wir unsere Überlegungen für das Problem der Abstandsregelung dar.
     Bei der Betrachtung dieser Regelungsaufgabe wurde schnell klar, dass das grundlegende Problem darin besteht, dass unsere Bilderkennung Information in Pixelkoordinaten eines zweidimensionalen Raums liefert.
     Nach einiger Recherche zu möglichen Rücktransformationen von zweidimensionalen Pixelkoordinaten zu dreidimensionalen Weltkoordinaten war die Problematik dieser Aufgabenstellung umso deutlicher.
@@ -111,39 +103,36 @@
     \begin{figure}[hbtp]
         \centering
         \includegraphics[width=0.45\textwidth]{Pinholeobject_label}
-        \caption{Schematische Darstellung der Tiefeninformation bei bekannter Geometrie}
-        % \vspace{-20pt}
-        \label{fig:reifenradius}
+        \caption{Schematische Darstellung der Tiefeninformation bei bekannter Geometrie}\label{fig:reifenradius}
     \end{figure}
     Stattdessen haben wir uns für eine Lösung entschieden, die auch als \textit{vision based control} bekannt ist.
     Bei dieser Art der Abstandsregelung haben wir auf die Transformation von Pixelkoordinatensystem zu Weltkoordinatensystem verzichtet und haben die nötigen Berechnung zur Reglung komplett im Pixelkoordinatensystem durchgeführt.
-    Unsere Reglerstruktur besteht aus zwei entkoppelten Reglern $C_u$ und $C_{\gamma}$, bei dem der Regler $C_u$ für den Abstand in Tiefenrichtung und der Regler $C_{\gamma}$ für den Abstand in Breitenrichtung beides bezüglich Weltkoordinatensystem verantwortlich ist.
-    Da wir jedoch keine Transformation zum Weltkoordinatensystem durchführen, haben wir die Informationen aus der Bilderkennung in entsprechende Fehlergrößen $e_u$ und $e_{\gamma}$ überführt, die dann durch den entsprechenden Regler in eine Motoransteuerung $u$ und einen Lenkwinkel $\gamma$ umgerechnet werden.
-
-    \begin{eqnarray}
-    u = C_u(e_u) \\
-    \gamma = C_{\gamma}(e_{\gamma})
-    \end{eqnarray}
-
-    Den benötigten Fehlergrößen liegen folgende Überlegungen zu Grunde:\\
-    Für den Abstandsfehler $e_u$ geben wir dem System ein Referenzbild, aufgenommen mit der Pi Kamera vor, in dem das vorausfahrende Auto im gewünschten Abstand vor dem Verfolger steht.
-    Der über die Bilderkennung ermittelte Abstand der Federn in Pixelkoordinaten dient im folgenden als Referenzgröße $d_{f,r}$. Dieser kann bei Bedarf auch "hart" in Pixelgrößen im System hinterlegt werden. Im Laufe der Fahrt wird nun jedes eingehende Bild analysiert und ein aktueller Abstand $d_{f,a}$ mit der Referenzgröße verglichen um den Abstandsfehler
-    \begin{eqnarray}
+    Unsere Reglerstruktur besteht aus zwei entkoppelten Reglern $C_u$ und $C_{\gamma}$, bei dem der Regler $C_u$ für den Abstand in Tiefenrichtung und der Regler $C_{\gamma}$ für den Abstand in Breitenrichtung verantwortlich ist, beide in Bezug auf das Weltkoordinatensystem.
+    Da wir jedoch keine Transformation zum Weltkoordinatensystem durchführen, haben wir die Informationen aus der Bilderkennung in entsprechende Fehlergrößen $e_u$ und $e_{\gamma}$ überführt, die dann durch den entsprechenden Regler in eine Motoransteuerung \[u = C_u(e_u)\] und einen Lenkwinkel \[\gamma = C_{\gamma}(e_{\gamma})\] umgerechnet werden.
+    Den hierfür benötigten Fehlergrößen liegen folgende Überlegungen zugrunde:
+    Für den Abstandsfehler $e_u$ geben wir dem System ein Referenzbild vor, in dem das vorausfahrende Auto im gewünschten Abstand zu dem verfolgenden Auto steht.
+    Der über die Bilderkennung ermittelte Abstand der Federn in Pixelkoordinaten dient im folgenden als Referenzgröße $d_{f,r}$.
+    Dieser kann bei Bedarf auch \enquote{hart} in Pixelgrößen im System hinterlegt werden.
+    Im Laufe der Fahrt wird nun jedes eingehende Bild analysiert und ein aktueller Abstand $d_{f,a}$ mit der Referenzgröße verglichen um den Abstandsfehler \[
     e_u = d_{f,r} -d_{f,a}
-    \end{eqnarray}
-    zu bilden. Vergrößert das vorausfahrende Fahrzeug den Abstand zum Verfolger wird der erkannte Abstand $ d_{f,a} $ kleiner und die Fehlergröße positiv. Andersherum wird die Fehlergröße negativ. Im Falle eines negativen Fehlers haben wir den Motorinput zu Null gesetzt, damit der Verfolger bremst und nicht mit negativer Motoransteuerung rückwärts fährt\\
-    Im Falle des Lenkfehlers $e_{\gamma}$ wird kein Referenzbild benötigt. Hier wird zu jedem Zeitpunkt der Mittelpunkt $M=[M_x, M_y]$ der Verbindungslinie zwischen der in der Bilderkennung ermittelten linken und rechten Feder ermittelt. Daraufhin bilden wir den horizontalen Abstand bezüglich der Bildmittellinie $e_{\gamma}$
-    \begin{eqnarray}
+    \] zu bilden.
+    Vergrößert das vorausfahrende Fahrzeug den Abstand zum Verfolger wird der erkannte Federabstand $ d_{f,a}$ kleiner und die Fehlergröße positiv. Andersherum wird die Fehlergröße negativ wenn sich der erkannte Federabstand vergrößert.
+    In diesem Fall nähert sich der Verfolger dem vorausfahrenden Fahrzeug und der Motorinut wird zu Null gesetzt, damit der Verfolger bremst und nicht mit negativer Motoransteuerung rückwärts fährt.
+    Für den Lenkfehler $e_{\gamma}$ wird kein Referenzbild benötigt, hier wird zu jedem Zeitpunkt der Mittelpunkt $M=\left[M_x, M_y\right]$ der Verbindungslinie zwischen der in der Bilderkennung ermittelten linken und rechten Feder ermittelt. Daraufhin bilden wir den horizontalen Abstand bezüglich der Bildmittellinie: \[
     e_{\gamma} = x_0 - M_x.
-    \end{eqnarray}
-    Die horizontale Koordinate der Bildmittellinie $x_0$ ist aus der Kamerakalibrierung als zentraler Punkt der Bildebene bekannt.\\
-    In beiden Fällen haben wir den eingehenden Fehler mit dem im allgemeinen am größten zu erwartenden Fehler skaliert, um den Eingang des Reglers auf dem Bereich [-1,1] zu normieren. Durch diesen Schritt ist es zum einen klarer die Reglerparameter zu wählen und zum anderen ist eine Abbildung auf den jeweils möglichen Ausgangsbereich für Motoransteuerung und Lenkwinkel besser möglich.\\
-    Als erste Implementierung haben wir die beiden Regler als Proportionalregler ausgelegt. Prinzipiell können in dem oben beschriebenen Rahmen aber auch weitere Reglerfunktionen angewendet werden.\\
+    \]
+    Die horizontale Koordinate der Bildmittellinie $x_0$ ist aus der Kamerakalibrierung als zentraler Punkt der Bildebene bekannt.
+
+    In beiden Fällen haben wir den eingehenden Fehler mit dem größten zu erwartenden Fehler skaliert, um den Eingang des Reglers auf den Bereich $\left[-1,1\right]$ zu normieren.
+    Durch diesen Schritt vereinfacht sich die Wahl der Reglerparameter.
+    Weiter ist eine Abbildung auf den jeweils möglichen Ausgangsbereich für Motoransteuerung und Lenkwinkel besser möglich.
+    Als erste Implementierung haben wir die beiden Regler als Proportionalregler ausgelegt.
+    Prinzipiell können in dem oben beschriebenen Rahmen aber auch weitere Reglerfunktionen angewendet werden.
 
 
 \section{Performance und Parameteroptimierung}
-    Für diese Abgabe haben wir uns auf die oben beschriebene Reglerstruktur unter Verwendung eines Proportionalreglers beschränkt, da wir nach ersten Testläufen mit einem aufgebockten Fahrzeug erkannten, dass unsere Regler zwar das gewünschte Verhalten zeigen aber die Umsetzung nicht in Echtzeit erfolgte.
-    Um die Rechenleistung zu erhöhen, haben wir das analysierte Bild verkleinert, indem wir nur im Abstand von unseren oben genannten Referenzpunkten gesucht haben.
+    Für diese Abgabe haben wir uns auf die oben beschriebene Reglerstruktur unter Verwendung eines Proportionalreglers beschränkt da wir nach ersten Testläufen mit einem aufgebockten Fahrzeug erkannten, dass unsere Regler zwar das gewünschte Verhalten zeigen aber die Umsetzung nicht in Echtzeit erfolgte.
+    Um die Rechenleistung zu erhöhen haben wir das analysierte Bild verkleinert, indem wir nur im Abstand von unseren oben genannten Referenzpunkten gesucht haben.
     Die zugrundeliegende Idee hierbei ist, dass das vorausfahrende Auto sich selbst in Kurven nicht sprunghaft aus unserem Bild entfernt und der betrachtete Ausschnitt mit jedem folgenden Bild in Richtung des Autos versetzt wird.
 
     Wie in Kapitel~\ref{sec:Abstandsreglung} beschrieben, verwenden wir die beiden Regler $C_u$ und $C_{\gamma}$.
@@ -152,15 +141,13 @@
     C_{\gamma}(e_{\gamma}) = \begin{cases}
         k_{\gamma}e_{\gamma}\gamma_{\max} & |e_{\gamma}| \leq 1 \\
         -\sign (e_{\gamma})\gamma_{\max}  & |e_{\gamma}| > 1
-    \end{cases}
-    \], mit $k_{\gamma}$ einer proportionalen Verstärkung und $\gamma_{\max}$ dem maximal möglichen Lenkeinschlag des Fahrzeugs.
+    \end{cases},
+    \] mit $k_{\gamma}$ einer proportionalen Verstärkung und $\gamma_{\max}$ dem maximal möglichen Lenkeinschlag des Fahrzeugs.
     Die Fallunterscheidung um den Wert Eins ergibt sich durch eine Skalierung des Fehlerwertes auf einen Toleranzabstand um die Mittellinie des Bildes, welche eingeführt wurde um einem Herausfahren des zu folgenden Fahrzeugs aus dem Bild der aufnehmenden Kamera durch einen maximalen Lenkeinschlag entgegen zu wirken.
     \begin{wrapfigure}{r}{0.5\textwidth}
         \centering
         \includegraphics[width=0.48\textwidth]{Autonomes_Fahren_Welt_Regler}
-        \caption{Darstellung der Reglerstruktur}
-        % \vspace{-20pt}
-        \label{fig:struktur}
+        \caption{Darstellung der Reglerstruktur}\label{fig:struktur}
     \end{wrapfigure}
 
     Der Regler für den Abstandsregler $C_{u}$ hat zum Zeitpunkt der Abgabe die interne Struktur \[
@@ -170,7 +157,7 @@
     \]
     mit $f(\gamma) = 1 - \nicefrac{\gamma}{\gamma_{\max}}x$.
 
-    Hierbei sind $k_{u}$ eine proportionale Verstärkung, $\gamma_{max}$, $u_{max}$ die jeweils maximalen Ansteuerungen von Motor und Lenkeinschlag und $u_{min}$ ein minimaler Motoreingang, der nötig ist um die Haftreibung zu überwinden.
+    Hierbei sind $k_{u}$ eine proportionale Verstärkung, $\gamma_{\max}$, $u_{\max}$ die jeweils maximalen Ansteuerungen von Motor und Lenkeinschlag und $u_{\min}$ ein minimaler Motoreingang, der nötig ist um die Haftreibung zu überwinden.
     Die zusätzliche Skalierung $f(\gamma)$ modelliert eine Abhängigkeit des erkannten Abstandes der Federn und darüber des vom Regler erzeugten Motoreingangs zum Gierwinkel des vorausfahrenden Fahrzeugs als proportionale Dämpfung des Eingangs $u$.
     Unsere Reglerstruktur ist in Abbildung~\ref{fig:struktur} dargestellt.
 
