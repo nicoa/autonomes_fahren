@@ -25,8 +25,8 @@
 % \AppendGraphicsExtensions{.tiff}
 
 
-\author{Felix Ganz\thanks{Projektgruppe 03 in der Lehrveranstaltung \glqq{}Autonomes Fahren\grqq\ an der \emph{TUHH} und der \emph{UHH}}\and Nico Albers\footnotemark[1] \and Tim Hansen\footnotemark[1]\and Timo Kias\footnotemark[1]}
-\title{Abgabe 2: \emph{Abstandsregler}}
+\author{Felix Ganz, 21486368\thanks{Projektgruppe 03 in der Lehrveranstaltung \glqq{}Autonomes Fahren\grqq\ an der \emph{TUHH} und der \emph{UHH}}\and Nico Albers, 6563892\footnotemark[1] \and Tim Hansen, 21378818\footnotemark[1]\and Timo Kias, 7124396\footnotemark[1]}
+\title{Abgabe 2: \emph{Abstandsregelung}}
 
 %\setcounter{tocdepth}{1}
 \begin{document}
@@ -45,26 +45,28 @@
     Da die Radaufhängung grundsätzlich über das Farbspektrum der entsprechenden Pixel allein identifizierbar ist und daher prinzipiell formunabhängig ist, hielten wir diesen Ansatz für vielversprechend.
     Ein weiterer Vorteil dieser Idee ist, dass wir zwei Punkte identifizieren können, was später im Zusammenhang mit der Abstandsreglung ein entscheidender Faktor sein wird.
 
-    Für die Identifikation der roten Federn haben wir das Farbspektrum der Pixel über ihre HSV-Koordinaten\footnote{Hue, Saturation und Value} untersucht, vergleiche Abbildung~\ref{fig:cars}.  
+    Für die Identifikation der roten Federn haben wir das Farbspektrum der Pixel über ihre HSV-Koordinaten\footnote{Hue, Saturation und Value} untersucht, vergleiche Abbildung~\ref{fig:car_hcsv}.  
     Diese Koordinaten bieten eine gute Möglichkeit passende Ober- und Untergrenzen des gewünschten Farbbereichs zu definieren, mit denen wir eine Maske bilden um die Pixel nach ihrem Farbspektrum zu filtern.
     Über die $H$ Koordinate kann dabei der Farbton rot relativ direkt benannt werden.
     Über die $S$- und $V$-Koordinaten konnten wir Farbintensität und Helligkeit einstellen.
-    Mit der HSV-Maske können wir das Bild in eine binäre Darstellung überführen, in der Pixel mit HSV-Werten innerhalb der definierten Grenzen als weiße Pixel und Pixel mit Werten außerhalb der Grenzen als schwarze Pixel dargestellt werden.\todo[inline]{TODO:\@ hier würde ich eher die Abbildung 1 referenzieren, vorausgesetzt der rechte Teil stellt das erwähnte binäre Bild da}
+    Mit der HSV-Maske können wir das Bild in eine binäre Darstellung überführen, in der Pixel mit HSV-Werten innerhalb der definierten Grenzen als weiße Pixel und Pixel mit Werten außerhalb der Grenzen als schwarze Pixel dargestellt werden, siehe Abbildung~\ref{fig:car_bin}.
     Mit dieser klaren Abgrenzung von roten zu andersfarbigen Pixeln, haben wir eine Reihe von Regeln erstellt, mit der gefundene rote (nun weiße) Bereiche als Federn identifiziert werden konnten.
     Nachdem zwei passende rote Felder gefunden wurden, haben wir jeweils Hüllkreise mit minimalem Radius um diese gezogen, sodass alle identifizierten Punkte innerhalb dieser Hülle liegen.
     Mit der hiermit konkretisierten Geometrie der gefundenen Federn waren wir in der Lage zunächst die Mittelpunkte und daraufhin den Abstand zwischen diesen in Pixelkoordinaten zu identifizieren.
-    \todo[inline]{TODO:\@ angaben weiterer Verfeinerungen der Grundidee Vorverarbeitung des Kamerabildes eventuell  einige der Regeln}
-
+    
     \begin{figure}[htbp]
         \centering
-        \begin{subfigure}[b]{0.4\textwidth}
-            \includegraphics[width=\textwidth]{car}
+        \begin{subfigure}[b]{0.3\textwidth}
+            \includegraphics[width=\textwidth]{crob_image}
             \caption{Bild des Autos}\label{fig:car}
-        \end{subfigure}~\begin{subfigure}[b]{0.4\textwidth}
-            \includegraphics[width=\textwidth]{car_hsv}
+        \end{subfigure}~\begin{subfigure}[b]{0.3\textwidth}
+            \includegraphics[width=\textwidth]{crob_image_hsv}
             \caption{HSV-gefiltertes Bild}\label{fig:car_hcsv}
-        \end{subfigure}
-        \caption{Bild und gefiltertes Bild des Autos}\label{fig:cars}
+        \end{subfigure}~\begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{crob_image_dots}
+        \caption{Binäres Bild}\label{fig:car_bin}
+    \end{subfigure}
+        \caption{Original und gefilterte Bilder des Autos mit markierten Mittelpunkten der erkannten Federn.}\label{fig:cars}
     \end{figure}
 
 
@@ -76,17 +78,17 @@
         Es war letztendlich möglich, die Bilderkennung mit \SI{15}{\hertz} und somit einer ausreichend hohen Frequenz für die Regelung durchzuführen.
 
         Um fehlerhaft erkannte Punkte (\textit{false positives}) auszuschließen und die Robustheit zu erhöhen, wenden wir logische Regeln an.
-        Diese sorgen dafür, dass erkannte rote Punkte anhand ihrer Grösse und Position ausgeschlossen werden.
+        Diese sorgen dafür, dass erkannte rote Punkte anhand ihrer Größe und Position ausgeschlossen werden.
         Weiter lässt sich auch bei nur einem im Bildausschnitt erkannten Punkt die Kenntnis des zweiten Punkts sicherstellen.
 
         Diese Methode hat noch einige Problematiken.
         So arbeitet die Erkennung bei keinem erkannten Punkt (wenn das Auto beispielsweise \glqq{}aus dem Bild fährt\grqq{}) nicht mehr einwandfrei und fehlerhaft.
-        Wir koennen zum aktuellen Zeitpunkt diese Punkte nicht wiedererkennen, ohne das zu verfolgende Auto wieder in die Mitte des Bildes zu stellen.
+        Wir können zum aktuellen Zeitpunkt diese Punkte nicht wiedererkennen, ohne das zu verfolgende Auto wieder in die Mitte des Bildes zu stellen.
         % subsection robustheit_und_performance (end)
 
 
 
-\section{Abstandsregelung}\label{sec:Abstandsreglung}
+\section{Abstandsregelung auf Basis der Bildverarbeitung}\label{sec:Abstandsreglung}
     Im Folgenden stellen wir unsere Überlegungen für das Problem der Abstandsregelung dar.
     Bei der Betrachtung dieser Regelungsaufgabe wurde schnell klar, dass das grundlegende Problem darin besteht, dass unsere Bilderkennung Information in Pixelkoordinaten eines zweidimensionalen Raums liefert.
     Nach einiger Recherche zu möglichen Rücktransformationen von zweidimensionalen Pixelkoordinaten zu dreidimensionalen Weltkoordinaten war die Problematik dieser Aufgabenstellung umso deutlicher.
@@ -157,8 +159,9 @@
     \]
     mit $f(\gamma) = 1 - \nicefrac{\gamma}{\gamma_{\max}}x$.
 
-    Hierbei sind $k_{u}$ eine proportionale Verstärkung, $\gamma_{\max}$, $u_{\max}$ die jeweils maximalen Ansteuerungen von Motor und Lenkeinschlag und $u_{\min}$ ein minimaler Motoreingang, der nötig ist um die Haftreibung zu überwinden.
-    Die zusätzliche Skalierung $f(\gamma)$ modelliert eine Abhängigkeit des erkannten Abstandes der Federn und darüber des vom Regler erzeugten Motoreingangs vom Gierwinkel des vorausfahrenden Fahrzeugs als proportionale Dämpfung des Eingangs $u$.
+    Hierbei sind $k_{u}$ eine proportionale Verstärkung, $\gamma_{\max}$, $u_{\max}$ die jeweils maximalen Ansteuerungen von Motor und Lenkeinschlag und $u_{\min}$ ein minimaler Motoreingang, der nötig ist um die Haftreibung zu überwinden. 
+    Die zusätzliche Skalierung $f(\gamma)$ modelliert eine Abhängigkeit des erkannten Abstandes der Federn und darüber des vom Regler erzeugten Motoreingangs vom Gierwinkel des vorausfahrenden Fahrzeugs als proportionale Dämpfung des Eingangs $u$. 
+    Der Proportionalitätsfaktor $x$ wurde zur Feinabstimmung der Skalierung eingeführt.
     Unsere Reglerstruktur ist in Abbildung~\ref{fig:struktur} dargestellt.
 
 
