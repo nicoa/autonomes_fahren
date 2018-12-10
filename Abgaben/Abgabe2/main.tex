@@ -118,9 +118,11 @@
     Im Laufe der Fahrt wird nun jedes eingehende Bild analysiert und ein aktueller Abstand $d_{f,a}$ mit der Referenzgröße verglichen um den Abstandsfehler \[
     e_u = d_{f,r} -d_{f,a}
     \] zu bilden.
-    Vergrößert das vorausfahrende Fahrzeug den Abstand zum Verfolger wird der erkannte Federabstand $ d_{f,a}$ kleiner und die Fehlergröße positiv. Andersherum wird die Fehlergröße negativ wenn sich der erkannte Federabstand vergrößert.
+    Vergrößert das vorausfahrende Fahrzeug den Abstand zum Verfolger wird der erkannte Federabstand $ d_{f,a}$ kleiner und die Fehlergröße positiv.
+    Andersherum wird die Fehlergröße negativ wenn sich der erkannte Federabstand vergrößert.
     In diesem Fall nähert sich der Verfolger dem vorausfahrenden Fahrzeug und der Motoreingang wird zu Null gesetzt, damit der Verfolger bremst und nicht mit negativer Motoransteuerung rückwärts fährt.
-    Für den Lenkfehler $e_{\gamma}$ wird kein Referenzbild benötigt, hier wird zu jedem Zeitpunkt der Mittelpunkt $M=\left[M_x, M_y\right]$ der Verbindungslinie zwischen der in der Bilderkennung ermittelten linken und rechten Feder ermittelt. Daraufhin bilden wir den horizontalen Abstand bezüglich der Bildmittellinie: \[
+    Für den Lenkfehler $e_{\gamma}$ wird kein Referenzbild benötigt, hier wird zu jedem Zeitpunkt der Mittelpunkt $M=\left[M_x, M_y\right]$ der Verbindungslinie zwischen der in der Bilderkennung ermittelten linken und rechten Feder ermittelt.
+    Daraufhin bilden wir den horizontalen Abstand bezüglich der Bildmittellinie: \[
     e_{\gamma} = x_0 - M_x.
     \]
     Die horizontale Koordinate der Bildmittellinie $x_0$ ist aus der Kamerakalibrierung als zentraler Punkt der Bildebene bekannt.
@@ -167,12 +169,14 @@
 
 \section{Grenzen und Ausblick}
     Die oben beschriebene Methode zur Steuerung des Fahrzeug hat gewisse Grenzen.
-    So kann das Fahrzeug nur Vorwärtsbewegungen folgen und wird, sofern das vordere Fahrzeug rückwärts fährt, mit diesem kollidieren. Hierfür wäre ein weitere Anpassung der Reglerlogik notwendig.
+    So kann das Fahrzeug nur Vorwärtsbewegungen folgen und wird, sofern das vordere Fahrzeug rückwärts fährt, mit diesem kollidieren.
+    Hierfür wäre ein weitere Anpassung der Reglerlogik notwendig.
 
     Zu Beginn haben wir die Regler unabhängig voneinander programmiert.
     Da der Abstand zwischen den getrackten Punkten in einer Kurve allerdings abnimmt, obwohl das führende Fahrzeug sich nicht in diesem Maße vom folgenden Fahrzeug entfernt, haben wir den eingeschlagenen Winkel als Drosselung einbezogen.
     Da wir allerdings in Grenzfällen den maximalen Winkel einschlagen müssen, um die Punkte entsprechend zu tracken, hat dies die Geschwindigkeit reduziert.
-    Für diese Aufgabe wollten wir allerdings auch mit maximalem Lenkwinkeln folgen und haben diesen Nachteil als notwendig akzeptiert. Gleichzeitig kann dieses Verhalten auch als positiv bewertet werden, da in Kurven generell mit geringerer Geschwindigkeit gefahren wird.
+    Für diese Aufgabe wollten wir allerdings auch mit maximalem Lenkwinkeln folgen und haben diesen Nachteil als notwendig akzeptiert.
+    Gleichzeitig kann dieses Verhalten auch als positiv bewertet werden, da in Kurven generell mit geringerer Geschwindigkeit gefahren wird.
 
     Ein weiterer Aspekt ist das Verhalten des Fahrzeugs, falls die Bilderkennung die Punkte verliert.
     Momentan fährt es mit letzter bekannter Winkel- sowie Geschwindigkeitsansteuerung weiter.
@@ -181,7 +185,8 @@
     Zusammenfassend lässt sich sagen, dass unsere Regelung bei wechselnden niedrigen bis mittleren Geschwindigkeiten auch mit Kurven recht sicher arbeitet.
     Als mögliche Optimierungen sehen wir insbesondere die Bilderkennung über einen größeren Zeitraum, da wir aktuell immer nur anhand eines Bildes tracken.
     Hierbei muss allerdings die Rechenleistung des Computers beachtet werden.
-    Auch mit komplexeren Reglern können wir voraussichtlich insbesondere die Geschwindigkeit erhöhen. Genaueren Modellierung des Zusammenhangs zwischen Gierwinkel des vorausfahrenden Fahrzeugs und erkanntem Abstand der Federn könnte ebenfalls zu einem verbesserten Verhalten in steilen Kurven führen.
+    Auch mit komplexeren Reglern können wir voraussichtlich insbesondere die Geschwindigkeit erhöhen.
+    Genaueren Modellierung des Zusammenhangs zwischen Gierwinkel des vorausfahrenden Fahrzeugs und erkanntem Abstand der Federn könnte ebenfalls zu einem verbesserten Verhalten in steilen Kurven führen.
 
 \section{Teamarbeit}
     Dadurch, dass alle Aufgaben von unserem Team gemeinsam gelöst wurden, gab es keine direkte Aufteilung der einzelnen Aufgaben.
