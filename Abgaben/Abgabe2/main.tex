@@ -35,9 +35,10 @@
 %\tableofcontents
 
 \section{Bilderkennung}
-    Zur Erkennung des vorausfahrenden Fahrzeugs haben wir zunächst gängige in OpenCV implementierte Bilderkennungsalgorithmen genutzt, um ein Rechteck um das gefundene
+    Zur Erkennung des vorausfahrenden Fahrzeugs haben wir zunächst gängige über OpenCV in Python implementierte Bilderkennungsalgorithmen genutzt, um ein Rechteck um das gefundene
     Fahrzeug zu legen.
-    Diese Algorithmen haben in unseren Experimenten nicht zufriedenstellend gearbeitet, insbesondere in Kurvenfahrten zeigte sich eine hohe Fehleranfälligkeit, wir haben deshalb den im Folgenden beschriebenen selbst entwickelten Ansatz zur Erkennung verfolgt.
+    Diese Algorithmen haben in unseren Experimenten nicht zufriedenstellend gearbeitet, insbesondere in Kurvenfahrten zeigte sich eine hohe Fehleranfälligkeit. 
+    Wir haben deshalb den im Folgenden beschriebenen selbst entwickelten Ansatz zur Erkennung verfolgt.
 
     Anstelle der Erkennung des gesamten Fahrzeugs im Bild versuchten wir, markante Merkmale des vorausfahrenden Autos zu identifizieren und nur diese zu erkennen.
     Unter der Annahme, dass das zu folgende Auto von gleicher Bauart wie unser eigenes Auto ist, haben wir die rot eingefärbten Federn der Hinterradaufhängung als passendes Merkmal hierzu festgelegt.
@@ -45,9 +46,9 @@
     Da die Radaufhängung grundsätzlich über das Farbspektrum der entsprechenden Pixel allein identifizierbar ist und daher prinzipiell formunabhängig ist, hielten wir diesen Ansatz für vielversprechend.
     Ein weiterer Vorteil dieser Idee ist, dass wir zwei Punkte identifizieren können, was später im Zusammenhang mit der Abstandsreglung ein entscheidender Faktor sein wird.
 
-    Für die Identifikation der roten Federn haben wir das Farbspektrum der Pixel über ihre HSV-Koordinaten\footnote{Hue, Saturation und Value} untersucht, vergleiche Abbildung~\ref{fig:car_hcsv}.  
+    Für die Identifikation der roten Federn haben wir das Farbspektrum der Pixel über ihre HSV-Koordinaten\footnote{Hue, Saturation und Value} untersucht. (Vergleiche Abbildung~\ref{fig:car_hcsv}).  
     Diese Koordinaten bieten eine gute Möglichkeit passende Ober- und Untergrenzen des gewünschten Farbbereichs zu definieren, mit denen wir eine Maske bilden um die Pixel nach ihrem Farbspektrum zu filtern.
-    Über die $H$ Koordinate kann dabei der Farbton rot relativ direkt benannt werden.
+    Über die $H$-Koordinate kann dabei der Farbton rot relativ direkt benannt werden.
     Über die $S$- und $V$-Koordinaten konnten wir Farbintensität und Helligkeit einstellen.
     Mit der HSV-Maske können wir das Bild in eine binäre Darstellung überführen, in der Pixel mit HSV-Werten innerhalb der definierten Grenzen als weiße Pixel und Pixel mit Werten außerhalb der Grenzen als schwarze Pixel dargestellt werden, siehe Abbildung~\ref{fig:car_bin}.
     Mit dieser klaren Abgrenzung von roten zu andersfarbigen Pixeln, haben wir eine Reihe von Regeln erstellt, mit der gefundene rote (nun weiße) Bereiche als Federn identifiziert werden konnten.
@@ -61,7 +62,7 @@
             \caption{Bild des Autos}\label{fig:car}
         \end{subfigure}~\begin{subfigure}[b]{0.3\textwidth}
             \includegraphics[width=\textwidth]{crob_image_hsv}
-            \caption{HSV-gefiltertes Bild}\label{fig:car_hcsv}
+            \caption{HSV-Bildkoordinaten}\label{fig:car_hcsv}
         \end{subfigure}~\begin{subfigure}[b]{0.3\textwidth}
         \includegraphics[width=\textwidth]{crob_image_dots}
         \caption{Binäres Bild}\label{fig:car_bin}
@@ -83,7 +84,7 @@
 
         Diese Methode hat noch einige Problematiken.
         So arbeitet die Erkennung bei keinem erkannten Punkt (wenn das Auto beispielsweise \glqq{}aus dem Bild fährt\grqq{}) nicht mehr einwandfrei und fehlerhaft.
-        Wir können zum aktuellen Zeitpunkt diese Punkte nicht wiedererkennen, ohne das zu verfolgende Auto wieder in die Mitte des Bildes zu stellen.
+        Wir können zum aktuellen Zeitpunkt diese Punkte nicht wiedererkennen, ohne das zu verfolgende Auto wieder in die Mitte des Bildes zu stellen. Siehe hierzu auch Abschnitt~\ref{sec:Ausblick}.
         % subsection robustheit_und_performance (end)
 
 
@@ -105,7 +106,7 @@
     \begin{figure}[hbtp]
         \centering
         \includegraphics[width=0.45\textwidth]{Pinholeobject_label}
-        \caption{Schematische Darstellung der Tiefeninformation bei bekannter Geometrie}\label{fig:reifenradius}
+        \caption{Schematische Darstellung der Tiefeninformation bei bekannter Geometrie.}\label{fig:reifenradius}
     \end{figure}
     Stattdessen haben wir uns für eine Lösung entschieden, die auch als \textit{vision based control} bekannt ist.
     Bei dieser Art der Abstandsregelung haben wir auf die Transformation von Pixelkoordinatensystem zu Weltkoordinatensystem verzichtet und haben die nötigen Berechnung zur Reglung komplett im Pixelkoordinatensystem durchgeführt.
@@ -135,11 +136,11 @@
 
 
 \section{Performance und Parameteroptimierung}
-    Für diese Abgabe haben wir uns auf die oben beschriebene Reglerstruktur unter Verwendung eines Proportionalreglers beschränkt da wir nach ersten Testläufen mit einem aufgebockten Fahrzeug erkannten, dass unsere Regler zwar das gewünschte Verhalten zeigen aber die Umsetzung nicht in Echtzeit erfolgte.
+    Für diese Abgabe haben wir uns auf die oben beschriebene Reglerstruktur unter Verwendung eines Proportionalreglers beschränkt, da wir nach ersten Testläufen mit einem aufgebockten Fahrzeug erkannten, dass unsere Regler zwar das gewünschte Verhalten zeigen, aber die Umsetzung nicht in Echtzeit erfolgte.
     Um die Rechenleistung zu erhöhen haben wir das analysierte Bild verkleinert, indem wir nur im Abstand von unseren oben genannten Referenzpunkten gesucht haben.
     Die zugrundeliegende Idee hierbei ist, dass das vorausfahrende Auto sich selbst in Kurven nicht sprunghaft aus unserem Bild entfernt und der betrachtete Ausschnitt mit jedem folgenden Bild in Richtung des Autos versetzt wird.
 
-    Wie in Kapitel~\ref{sec:Abstandsreglung} beschrieben, verwenden wir die beiden Regler $C_u$ und $C_{\gamma}$.
+    Wie in Abschnitt~\ref{sec:Abstandsreglung} beschrieben, verwenden wir die beiden Regler $C_u$ und $C_{\gamma}$.
     Der Regler für den Lenkeinschlag $C_{\gamma}(e_{\gamma})$ hat zum Zeitpunkt der Abgabe die interne Struktur
     \[
     C_{\gamma}(e_{\gamma}) = \begin{cases}
@@ -151,7 +152,7 @@
     \begin{wrapfigure}{r}{0.5\textwidth}
         \centering
         \includegraphics[width=0.48\textwidth]{Autonomes_Fahren_Welt_Regler}
-        \caption{Darstellung der Reglerstruktur}\label{fig:struktur}
+        \caption{Darstellung der Reglerstruktur.}\label{fig:struktur}
     \end{wrapfigure}
 
     Der Regler für den Abstandsregler $C_{u}$ hat zum Zeitpunkt der Abgabe die interne Struktur \[
@@ -167,24 +168,24 @@
     Unsere Reglerstruktur ist in Abbildung~\ref{fig:struktur} dargestellt.
 
 
-\section{Grenzen und Ausblick}
+\section{Grenzen und Ausblick}\label{sec:Ausblick}
     Die oben beschriebene Methode zur Steuerung des Fahrzeug hat gewisse Grenzen.
     So kann das Fahrzeug nur Vorwärtsbewegungen folgen und wird, sofern das vordere Fahrzeug rückwärts fährt, mit diesem kollidieren.
-    Hierfür wäre ein weitere Anpassung der Reglerlogik notwendig.
+    Hierfür wäre eine weitere Anpassung der Reglerlogik notwendig.
 
     Zu Beginn haben wir die Regler unabhängig voneinander programmiert.
     Da der Abstand zwischen den getrackten Punkten in einer Kurve allerdings abnimmt, obwohl das führende Fahrzeug sich nicht in diesem Maße vom folgenden Fahrzeug entfernt, haben wir den eingeschlagenen Winkel als Drosselung einbezogen.
-    Da wir allerdings in Grenzfällen den maximalen Winkel einschlagen müssen, um die Punkte entsprechend zu tracken, hat dies die Geschwindigkeit reduziert.
+    Da wir allerdings in Grenzfällen den maximalen Winkel einschlagen müssen um die Punkte entsprechend zu tracken, hat dies die Geschwindigkeit reduziert.
     Für diese Aufgabe wollten wir allerdings auch mit maximalem Lenkwinkeln folgen und haben diesen Nachteil als notwendig akzeptiert.
     Gleichzeitig kann dieses Verhalten auch als positiv bewertet werden, da in Kurven generell mit geringerer Geschwindigkeit gefahren wird.
 
     Ein weiterer Aspekt ist das Verhalten des Fahrzeugs, falls die Bilderkennung die Punkte verliert.
-    Momentan fährt es mit letzter bekannter Winkel- sowie Geschwindigkeitsansteuerung weiter.
-    Als mögliche Stabilisierung könnten hierzu beispielsweise die Kanten der Kamerasäule des führenden Fahrzeugs getrackt werden und bei Trackingverlust mit mindestens einem bekannten Punkt der andere auf der gegenüberliegenden Seite der Säule angenommen werden.
+    Momentan fährt es mit der letzten bekannten Winkel- sowie Geschwindigkeitsansteuerung weiter.
+    Als mögliche Stabilisierung könnten hierzu beispielsweise die Kanten der Kamerasäule des führenden Fahrzeugs getrackt werden und bei Trackingverlust mit mindestens einem bekannten Punkt der andere Punkt auf der gegenüberliegenden Seite der Säule angenommen werden.
 
     Zusammenfassend lässt sich sagen, dass unsere Regelung bei wechselnden niedrigen bis mittleren Geschwindigkeiten auch mit Kurven recht sicher arbeitet.
     Als mögliche Optimierungen sehen wir insbesondere die Bilderkennung über einen größeren Zeitraum, da wir aktuell immer nur anhand eines Bildes tracken.
-    Hierbei muss allerdings die Rechenleistung des Computers beachtet werden.
+    Hierbei muss allerdings die Rechenleistung des Raspberry Pi beachtet werden.
     Auch mit komplexeren Reglern können wir voraussichtlich insbesondere die Geschwindigkeit erhöhen.
     Genaueren Modellierung des Zusammenhangs zwischen Gierwinkel des vorausfahrenden Fahrzeugs und erkanntem Abstand der Federn könnte ebenfalls zu einem verbesserten Verhalten in steilen Kurven führen.
 
